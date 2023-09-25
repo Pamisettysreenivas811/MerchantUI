@@ -11,13 +11,11 @@ function PaymentCheck() {
     axios
       .get("/getstatus/" + pay)
       .then((res) => {
-        if (res.data === "") {
-          alert("Data NOT Found");
-        }
-        const myData = res.data;
-        setRecords(myData);
+        setRecords(res.data);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        alert(error.response.data);
+      });
   };
 
   return (
@@ -48,31 +46,34 @@ function PaymentCheck() {
                 </button>
               </div>
             </form>
-
-            <table className="table mt-5" border={2} cellPadding={10}>
-              <thead>
-                <tr>
-                  <th scope="col">PaymentId</th>
-                  <th scope="col">Amount</th>
-                  <th scope="col">MerchantId</th>
-                  <th scope="col">Currency</th>
-                  <th scope="col">orderId</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Customer</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{records.paymentId}</td>
-                  <td>{records.amount}</td>
-                  <td>{records.merchantId}</td>
-                  <td>{records.currency}</td>
-                  <td>{records.orderId}</td>
-                  <td>{records.paymentStatus}</td>
-                  <td>{records.customerName}</td>
-                </tr>
-              </tbody>
-            </table>
+            {records.length === 0 ? (
+              <p>No data found for the given query.</p>
+            ) : (
+              <table className="table mt-5" border={2} cellPadding={10}>
+                <thead>
+                  <tr>
+                    <th scope="col">PaymentId</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">MerchantId</th>
+                    <th scope="col">Currency</th>
+                    <th scope="col">orderId</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Customer</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{records.paymentId}</td>
+                    <td>{records.amount}</td>
+                    <td>{records.merchantId}</td>
+                    <td>{records.currency}</td>
+                    <td>{records.orderId}</td>
+                    <td>{records.paymentStatus}</td>
+                    <td>{records.customerName}</td>
+                  </tr>
+                </tbody>
+              </table>
+            )}
           </div>
         </div>
       </section>

@@ -10,12 +10,14 @@ function Payment() {
     customerName: "",
   });
 
+  const [message, setMessage] = useState("");
+
   const save = (e) => {
     e.preventDefault();
     axios
       .post("/paymentform", { ...post })
-      .then((response) => alert(response.data))
-      .catch((err) => console.log(err));
+      .then((response) => setMessage(response.data))
+      .catch((err) => alert(err.response.data));
   };
 
   const handleInput = (e) => {
@@ -106,6 +108,14 @@ function Payment() {
               </div>
             </form>
           </div>
+          {message && (
+            <div
+              className="response-message text-center pt-4"
+              style={{ fontSize: 30 }}
+            >
+              {message}
+            </div>
+          )}
         </div>
       </section>
     </>

@@ -10,15 +10,21 @@ function RegisterForm() {
     phone: "",
   });
 
+  const [message, setMessage] = useState("");
+
+  const [error, setError] = useState(null);
+
   const save = (e) => {
     e.preventDefault();
 
     axios
       .post("/register", { ...post })
       .then((response) => {
-        alert(response.data);
+        setMessage(response.data);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        alert(err.response.data);
+      });
   };
 
   const handleInput = (e) => {
@@ -108,6 +114,14 @@ function RegisterForm() {
               </div>
             </form>
           </div>
+          {message && (
+            <div
+              className="response-message text-center pt-4"
+              style={{ fontSize: 30 }}
+            >
+              {message}
+            </div>
+          )}
         </div>
       </section>
     </>
