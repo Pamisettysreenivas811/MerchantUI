@@ -12,7 +12,6 @@ function RegisterForm() {
 
   const [message, setMessage] = useState("");
 
-  const [error, setError] = useState(null);
 
   const save = (e) => {
     e.preventDefault();
@@ -75,7 +74,7 @@ function RegisterForm() {
                   name="businessType"
                   onChange={handleInput}
                 >
-                  <option selected>Choose...</option>
+                  <option>Choose...</option>
                   <option>Online Retail</option>
                 </select>
               </div>
